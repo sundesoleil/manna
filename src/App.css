@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "SUIT-Medium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "SUIT-Medium";
+}
+
+/* Color Guide */
+
+.manna_color {
+  color: #4931af;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +53,39 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+}
+
+nav {
+  overflow: hidden;
+  border-top: 2px solid rgb(228, 226, 226);
+}
+
+nav > div {
+  text-align: center;
+  float: left;
+  width: 25%;
+  height: 45px;
+  line-height: 55px;
+}
+
+.nav-item {
+  width: 20px;
+  height: 20px;
+  color: rgb(139, 139, 139);
+}
+
+.nav-link:hover {
+  color: #6756be;
+}
+
+.active {
+  color: #6756be;
 }
