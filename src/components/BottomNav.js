@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { faHouse, faPlus, faUser, faMapLocation } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { HouseDoor, GeoAlt, PlusLg, PersonCircle} from 'react-bootstrap-icons';
 
 function BottomNav() {
 
@@ -12,34 +11,22 @@ function BottomNav() {
             <nav className="wrapper d-block d-sm-none d-md-none">
                 <div>
                     <Link to="/" className="nav-link" onClick={() => setActiveNav(1)}>
-                        <FontAwesomeIcon
-                            icon={faHouse}
-                            className={activeNav === 1 ? "nav-item active" : "nav-item"}
-                        />
+                        <HouseDoor className={activeNav === 1 ? "nav-item active" : "nav-item"} />
                     </Link>
                 </div>
                 <div>
                     <Link to="/meeting" className="nav-link" onClick={() => setActiveNav(2)}>
-                        <FontAwesomeIcon
-                            icon={faMapLocation}
-                            className={activeNav === 2 ? "nav-item active" : "nav-item"}
-                        />
+                        <GeoAlt className={activeNav === 2 ? "nav-item active" : "nav-item"} />
                     </Link>
                 </div>
                 <div>
                     <Link to="/add" className="nav-link" onClick={() => setActiveNav(3)}>
-                        <FontAwesomeIcon
-                            icon={faPlus}
-                            className={activeNav === 3 ? "nav-item active" : "nav-item"}
-                        />
+                        <PlusLg className={activeNav === 3 ? "nav-item active" : "nav-item"} />
                     </Link>
                 </div>
                 <div>
-                <Link to="/profile" className="nav-link" onClick={() => setActiveNav(4)}>
-                    <FontAwesomeIcon
-                            icon={faUser}
-                            className={activeNav === 4 ? "nav-item active" : "nav-item"}
-                    />
+                <Link to="/login" className="nav-link" onClick={() => setActiveNav(4)}>
+                    <PersonCircle className={activeNav === 4 ? "nav-item active" : "nav-item"} />
                 </Link>
                 </div>
             </nav>
@@ -48,7 +35,7 @@ function BottomNav() {
                    Privacy policy
                 </div>
                 <div className="float-end text-secondary">
-                    Manna @ 2022 All rights reserved
+                    Manna © 2022 All rights reserved
                 </div>
             </nav>
             </>

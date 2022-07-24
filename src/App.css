@@ -1,19 +1,44 @@
 @font-face {
-  font-family: "SUIT-Medium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2")
-    format("woff2");
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
-
 * {
-  font-family: "SUIT-Medium";
+  font-family: "NanumSquareRound";
 }
 
 /* Color Guide */
-
-.manna_color {
+.manna-icon {
+  width: 30px;
+  height: 30px;
+}
+.manna-logo,
+.manna-logo:hover {
   color: #4931af;
+  text-decoration: none;
+}
+.manna-button {
+  background: #4931af;
+  color: #fff;
+}
+.manna-button:hover,
+.manna-button:active,
+.manna-button:focus {
+  background: #3f2b9b;
+}
+
+.button-unstyled,
+.button-unstyled:disabled,
+.button-unstyled:disabled {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 .App {
@@ -60,12 +85,12 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 55px;
+  height: 60px;
 }
 
 nav {
   overflow: hidden;
-  border-top: 2px solid rgb(228, 226, 226);
+  border-top: 1px solid rgb(211, 210, 210);
 }
 
 nav > div {
@@ -83,9 +108,44 @@ nav > div {
 }
 
 .nav-link:hover {
-  color: #6756be;
+  color: #5646a7;
 }
 
 .active {
   color: #6756be;
+}
+
+.sns-logo {
+  height: 25px;
+  width: 25px;
+}
+
+.hr-sect {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 12px;
+  margin: 8px 0px;
+}
+.hr-sect::before,
+.hr-sect::after {
+  content: "";
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.35);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 16px;
+}
+
+@media (min-width: 768px) {
+  .login-form {
+    padding: 25px 0;
+    border: 1px solid #e2e2e2;
+    width: 500px;
+    margin: auto;
+    margin-top: 60px;
+    border-radius: 20px;
+  }
 }

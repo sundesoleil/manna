@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Meeting from './pages/Meeting';
 import Add from './pages/Add';
 import Profile from './pages/Profile';
-import SignUp from './pages/SignUp';
+import Login from './pages/Login';
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Route path="/meeting" element={ <Meeting /> } />
         <Route path="/add" element={ <Add /> } />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
