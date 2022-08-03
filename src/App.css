@@ -113,6 +113,7 @@ nav > div {
 
 .active {
   color: #6756be;
+  font-weight: bold;
 }
 
 .sns-logo {

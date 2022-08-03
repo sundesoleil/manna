@@ -24,6 +24,9 @@ function LoginForm() {
         console.log("회원가입완료!", formData);
     }
 
+    /*
+     TODO: step 0에서 이메일이 DB 에 있는지 여부를 검사 후, 있으면 로그인 페이지로 보내고 없으면 회원가입 절차로 보낸다!
+    */
     const handleNextStep = (newData, final = false) => {
         setData(prev => ({ ...prev, ...newData }))
     
