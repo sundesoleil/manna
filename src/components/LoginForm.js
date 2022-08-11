@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from 'yup';
@@ -8,7 +9,7 @@ import { ChevronLeft } from 'react-bootstrap-icons';
 function LoginForm() {
 
     const [data, setData] = useState({
-        email: '',
+        memberEmail: '',
         userName: '',
         birthOfDate: '',
         profileImage: '',
@@ -24,18 +25,56 @@ function LoginForm() {
         console.log("회원가입완료!", formData);
     }
 
+    // async function test(){
+    //     const response = await axios.get(`/api/v1/login/find-member-email`, {
+    //     params: {
+    //         memberEmail: 'Wyatt_Balistreri@hotmail.com',
+    //         },
+    //     });
+    //     alert(response.data.success);
+
+    //     if (response.data.success) {
+    //     alert('# 이미 존재하는 아이디임 - 로그인페이지로');
+    //     } else {
+    //     alert('# 이미 안 존재하는 아이디임 - 회우너가입페이지로');
+    //     }
+    //     return response;
+    // }
+
+
+    
     /*
      TODO: step 0에서 이메일이 DB 에 있는지 여부를 검사 후, 있으면 로그인 페이지로 보내고 없으면 회원가입 절차로 보낸다!
     */
     const handleNextStep = (newData, final = false) => {
-        setData(prev => ({ ...prev, ...newData }))
-    
+        
+        async function test() {
+            const response = await axios.get(`/api/v1/login/find-member-email`, {
+                params: {
+                    memberEmail: newData.memberEmail
+                },
+            });
+            console.log(response);
+            return response.data;
+        }
+        if (currentStep === 0) {
+            test()
+                .then((result) => {
+                    if (result.success) {
+                        alert('있지롱')
+                    } else {
+                        alert('없지롱');
+                        setCurrentStep(prev => prev + 1);
+                    }
+                })
+        } else setCurrentStep(prev => prev + 1);
+        
+        setData(prev => ({ ...prev, ...newData }));
+        
         if (final) {
             makeRequest(newData);
-            return;
         }
 
-       setCurrentStep(prev => prev + 1)
     }
 
     const handlePrevStep = (newData) => {
@@ -59,13 +98,15 @@ function LoginForm() {
 }
 
 const loginOrSignUpValidationSchema = yup.object({
-    email: yup.string().email('유효하지 않은 이메일 형식입니다😅').required('이메일은 필수입니다')
+    memberEmail: yup.string().email('유효하지 않은 이메일 형식입니다😅').required('이메일은 필수입니다')
 });
 
 const LoginOrSignUp = (props) => {
-    const handleSubmit = (values) => {  
+    const handleSubmit = (values) => {
         props.next(values);
     }
+
+
     return (
         <Formik
             validationSchema={loginOrSignUpValidationSchema}
@@ -79,10 +120,10 @@ const LoginOrSignUp = (props) => {
                     <div className="mx-4">  
                     <p className="fs-5 text-start fw-semibold mt-4">아무나 만나보는 거야, MANNA</p>
                     <div className="form-floating">
-                        <Field name="email" className="form-control" placeholder="account@example.com" />
+                        <Field name="memberEmail" className="form-control" placeholder="account@example.com" />
                         <label className="text-start">이메일</label>
                     </div>
-                    <span className="text-danger float-start fw-semibold mt-1"><ErrorMessage name="email" /></span>
+                    <span className="text-danger float-start fw-semibold mt-1"><ErrorMessage name="memberEmail" /></span>
                     <Button className="w-100 p-2 my-2 manna-button" type="submit">다음</Button>
                     <div className="hr-sect mb-4">또는</div>
                     <div className="sns-login">
