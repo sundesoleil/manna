@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from 'yup';
 import { Button } from 'react-bootstrap';
@@ -10,6 +11,7 @@ function LoginForm() {
 
     const [data, setData] = useState({
         memberEmail: '',
+        memberPassword: '',
         userName: '',
         birthOfDate: '',
         profileImage: '',
@@ -25,49 +27,49 @@ function LoginForm() {
         console.log("회원가입완료!", formData);
     }
 
-    // async function test(){
-    //     const response = await axios.get(`/api/v1/login/find-member-email`, {
-    //     params: {
-    //         memberEmail: 'Wyatt_Balistreri@hotmail.com',
-    //         },
-    //     });
-    //     alert(response.data.success);
+    const navigate = useNavigate();
 
-    //     if (response.data.success) {
-    //     alert('# 이미 존재하는 아이디임 - 로그인페이지로');
-    //     } else {
-    //     alert('# 이미 안 존재하는 아이디임 - 회우너가입페이지로');
-    //     }
-    //     return response;
-    // }
+    const goBackToMain = () => {
+        navigate(`/`);
+    };
 
-
-    
-    /*
-     TODO: step 0에서 이메일이 DB 에 있는지 여부를 검사 후, 있으면 로그인 페이지로 보내고 없으면 회원가입 절차로 보낸다!
-    */
     const handleNextStep = (newData, final = false) => {
-        
+
         async function test() {
             const response = await axios.get(`/api/v1/login/find-member-email`, {
                 params: {
                     memberEmail: newData.memberEmail
                 },
             });
-            console.log(response);
             return response.data;
         }
+
         if (currentStep === 0) {
             test()
                 .then((result) => {
                     if (result.success) {
-                        alert('있지롱')
+                        setCurrentStep(1);
                     } else {
-                        alert('없지롱');
-                        setCurrentStep(prev => prev + 1);
+                        setCurrentStep(2);
                     }
                 })
-        } else setCurrentStep(prev => prev + 1);
+        } else if (currentStep === 1) {
+            const params = { memberEmail: newData.memberEmail, memberPassword: newData.memberPassword };
+            axios.post(`/api/v1/login`, params)
+                .then(response => {
+                    if (response.data.success) {
+                        console.log(response);
+                        alert('Welcome, ' + response.data.data.memberName);
+                        goBackToMain();
+                    } else {
+                        alert(response.data.data.message);
+                    }
+                })
+                .catch(error => {
+                    alert(error);
+                });
+        }
+        else setCurrentStep(prev => prev + 1);
         
         setData(prev => ({ ...prev, ...newData }));
         
@@ -79,13 +81,18 @@ function LoginForm() {
 
     const handlePrevStep = (newData) => {
         setData(prev => ({ ...prev, ...newData }))
-        setCurrentStep(prev => prev - 1)
+        if (currentStep === 2) {
+            setCurrentStep(0);
+        } else {
+            setCurrentStep(prev => prev - 1);
+        }
     };
 
-    const FormTitles = ["로그인 또는 회원가입", "회원 기본 정보", "관심사"];
+    const FormTitles = ["로그인 또는 회원가입", "로그인", "회원 기본 정보", "관심사"];
 
     const steps = [
         <LoginOrSignUp next={handleNextStep} data={data} titles={FormTitles} step={currentStep} />,
+        <Login next={handleNextStep} data={data} titles={FormTitles} step={currentStep} />,
         <PersonalInfo next={handleNextStep} prev={handlePrevStep} data={data} titles={FormTitles} step={currentStep} />,
         <Interests prev={handlePrevStep} next={handleNextStep} data={data} titles={FormTitles} step={currentStep} />
     ]
@@ -94,6 +101,46 @@ function LoginForm() {
         <div className="login-form">
             {steps[currentStep]}
         </div>
+    );
+}
+
+/**
+ * 로그인
+ */
+const loginValidationSchema = yup.object({
+    memberPassword: yup.string().required('비밀번호는 필수입니다.')
+});
+
+
+const Login = (props) => {
+    const handleSubmit = (values) => {
+        props.next(values);
+    }
+
+    return (
+        <Formik
+            validationSchema={loginValidationSchema}
+            initialValues={props.data}
+            onSubmit={handleSubmit}
+        >
+            {() => (
+                <Form>
+                    <h6 className="fw-semibold">{props.titles[props.step]}</h6>
+                    <hr />
+                    <div className="mx-4">  
+                    <p className="fs-5 text-start fw-semibold mt-4">아무나 만나보는 거야, MANNA</p>
+                    <div className="form-floating">
+                        <Field name="memberPassword" type="password" className="form-control" />
+                        <label className="text-start">비밀번호</label>
+                    </div>
+                        <span className="text-danger float-start fw-semibold mt-1">
+                            <ErrorMessage name="memberPassword" />
+                        </span>
+                    <Button className="w-100 p-2 my-2 manna-button" type="submit">로그인</Button>
+                    </div>
+                </Form>
+            )}
+        </Formik>
     );
 }
 
