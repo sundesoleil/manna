@@ -8,7 +8,7 @@ function BottomNav() {
 
     return (
         <>
-            <nav className="wrapper d-block d-sm-none d-md-none">
+            <nav className="wrapper d-block d-sm-none d-md-none bg-light">
                 <div>
                     <Link to="/" className="nav-link" onClick={() => setActiveNav(1)}>
                         <HouseDoor className={activeNav === 1 ? "nav-item active" : "nav-item"} />

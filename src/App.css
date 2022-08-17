@@ -150,3 +150,41 @@ nav > div {
     border-radius: 20px;
   }
 }
+
+.color-text {
+  color: rgb(165, 41, 3);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.place-name {
+  color: rgb(72, 72, 72);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+.price {
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(72, 72, 72) !important;
+}
+
+.checked {
+  color: rgb(0, 132, 137) !important;
+  font-size: 9px;
+}
+.text-desc {
+  font-size: 14px !important;
+}
+
+.text-color {
+  color: rgb(255, 180, 0) !important;
+  font-size: 12px !important;
+}
+
+.rating {
+  font-size: 12px;
+}

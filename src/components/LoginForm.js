@@ -61,6 +61,8 @@ function LoginForm() {
                         console.log(response);
                         alert('Welcome, ' + response.data.data.memberName);
                         goBackToMain();
+                        // 쿠키에 토큰 저장
+
                     } else {
                         alert(response.data.data.message);
                     }

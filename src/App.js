@@ -1,6 +1,4 @@
 import './App.css';
-import { useState, useEffect } from 'react';
-import Axios from "axios";
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Meeting from './pages/Meeting';
